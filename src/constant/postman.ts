@@ -1,0 +1,1 @@
+export const domain = 'https://store-re1v.onrender.com'
