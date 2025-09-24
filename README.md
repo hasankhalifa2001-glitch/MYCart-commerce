@@ -1,10 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 MyCart - Ecommerce Platform
 
-## Getting Started
+منصة تجارة إلكترونية تحتوي على:
 
-First, run the development server:
+- واجهة مستخدم سلسة وسريعة
+- لوحة تحكم احترافية للمشرف
+
+## 💻 Technologies
+
+- Next.js, React, Typescript
+- Tailwind CSS, ShadCN
+- date-fns, react-awesome-reveal
+
+## 📸 Screenshots
+
+[أضف صور هنا]
+
+## 🚀 Run Locally
 
 ```bash
+npm install
 npm run dev
 # or
 yarn dev
