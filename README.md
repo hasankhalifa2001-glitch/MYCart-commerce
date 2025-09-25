@@ -15,32 +15,32 @@
 
 - **الصفحة الرئيسية**
 
-  ![Homepage](public/screenshots/homepage.png)
+  ![Homepage](screenshots/homepage.png)
 
 - **سلة التسوق (Cart)**
 
-  ![Cart](public/screenshots/cart.png)
+  ![Cart](screenshots/cart.png)
 
 - **المنتجات الأكثر مبيعًا (Best Selling Products)**
 
-  ![Best Selling Products](public/screenshots/best-selling.png)
+  ![Best Selling Products](screenshots/best-selling.png)
 
 - **تفاصيل المنتج (Product Details)**
 
-  ![Product Details](public/screenshots/product-details.png)
+  ![Product Details](screenshots/product-details.png)
 
 - **لوحة التحكم (Admin Panel)**
 
-  ![Admin Panel](public/screenshots/admin-panel.png)
+  ![Admin Panel](screenshots/admin-panel.png)
 
 - **إدارة المستخدمين (User Management)**
 
-  ![User Management](public/screenshots/user-management.png)
+  ![User Management](screenshots/user-management.png)
 
 - **إدارة الفئات (Category Management)**
 
-  ![Categories Management](public/screenshots/categories-management.png)
-  ![Category Management](public/screenshots/category-management.png)
+  ![Categories Management](screenshots/categories-management.png)
+  ![Category Management](screenshots/category-management.png)
 
 ## 🚀 Run Locally
 
