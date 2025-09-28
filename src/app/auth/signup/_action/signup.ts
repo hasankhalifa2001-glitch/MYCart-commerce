@@ -2,16 +2,32 @@
 // "use server"
 
 import { domain } from "@/constant/postman";
-import { RegisterSchema } from "@/validation/auth"
+import { RegisterSchema, validationError } from "@/validation/auth"
 import axios from "axios";
 
-export default async function signup(prevState: unknown, formData: FormData) {
-    // const name = formData.get('name')?.toString()
-    // const email = formData.get('email')?.toString()
-    // const password = formData.get('password')?.toString()
-    // const age = formData.get('age')?.toString()
-    // const phone = formData.get('phone')?.toString()
-    // const address = formData.get('address')?.toString()
+
+export type FormState =
+    | {
+        error: validationError;
+        formData: FormData;
+        message?: undefined;
+        status?: undefined;
+    }
+    | {
+        formData: FormData;
+        message: string;
+        status: number;
+        error?: undefined;
+    }
+    | {
+        message: string;
+        formData: FormData;
+        error?: undefined;
+        status?: undefined;
+    };
+
+
+export default async function signup(prevState: FormState, formData: FormData): Promise<FormState> {
 
     const result = (await RegisterSchema()).safeParse(
         Object.fromEntries(formData.entries())
@@ -23,14 +39,8 @@ export default async function signup(prevState: unknown, formData: FormData) {
             formData,
         };
     }
-    // if (result.success === true) {
-    //     return {
-    //         formData,
-    //     };
-    // }
 
     try {
-
         const res = await axios.post(`${domain}/auth/sign-up`, {
             name: result.data.name,
             email: result.data.email,

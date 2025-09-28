@@ -1,5 +1,5 @@
 import MainHeading from "@/components/MainHeading";
-import { Fade, Slide, Reveal } from "react-awesome-reveal";
+import { Slide } from "react-awesome-reveal";
 
 // app/about/page.tsx
 export default function AboutPage() {

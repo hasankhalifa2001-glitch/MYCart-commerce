@@ -13,10 +13,28 @@ import { Label } from "@/components/ui/label";
 import { Edit } from "lucide-react";
 import Rate from "./Rate";
 import { useActionState, useState } from "react";
-import { validationError } from "@/validation/auth";
 import { AddReview, UpdateReview } from "../_action/Review";
 import LoadingComponent from "@/components/LoadingComponent";
 import { Review } from "../page";
+
+
+interface ErrorState {
+    error: { Review?: string[] };
+    formData: FormData;
+    message?: undefined;
+    status?: undefined;
+}
+
+interface SuccessState {
+    message: string;
+    status: number;
+    error?: undefined;
+    formData?: undefined;
+}
+
+type State = ErrorState | SuccessState;
+
+
 
 interface Props {
     token: string;
@@ -26,14 +44,9 @@ interface Props {
 }
 
 const WriteReview = ({ token, id, status, review }: Props) => {
-    const initialState: {
-        message?: string;
-        error?: validationError;
-        status?: number | null;
-    } = {
-        message: "",
+    const initialState: State = {
         error: {},
-        status: null,
+        formData: new FormData(),
     };
 
     const [rating, setRating] = useState(review ? review.rating : 0);
@@ -107,6 +120,7 @@ const WriteReview = ({ token, id, status, review }: Props) => {
                             className=""
                             size={"default"}
                             variant={"primary_two"}
+                            disabled={pending}
                         >
                             {pending ? <LoadingComponent /> : "Submit Review"}
                         </Button>

@@ -15,9 +15,10 @@ interface Props {
         id: number,
         name: string
     }[]
+    categoryId: number
 }
 
-const SubCategories = ({ token, subCategories }: Props) => {
+const SubCategories = ({ token, subCategories, categoryId }: Props) => {
     return (
         <div className='flex flex-col w-full lg:w-2/5 gap-5'>
             <div className='text-2xl font-semibold'>Sub Categories</div>
@@ -29,7 +30,7 @@ const SubCategories = ({ token, subCategories }: Props) => {
                         </div>
                         <div className='flex gap-4'>
                             <UpdateSubCategory sub={sub} token={token} />
-                            <SubCategoryDetele id={sub.id} token={token} />
+                            <SubCategoryDetele id={sub.id} token={token} categoryId={categoryId} />
                         </div>
                     </div>
                 )

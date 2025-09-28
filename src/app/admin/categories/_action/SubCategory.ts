@@ -4,31 +4,27 @@ import { domain } from "@/constant/postman";
 import { AddSubCategorySchema, UpdateSubCategorySchema } from "@/validation/addItems";
 import { revalidatePath } from "next/cache";
 import axios from 'axios';
+import { initialSubCategoryState } from "../_components/FormSubCategory";
 
 
 
 export async function addSubCategory(
     arg: { token: string; categoryId: string },
-    prevState: unknown,
+    prevState: typeof initialSubCategoryState,
     formData: FormData
-) {
+): Promise<typeof initialSubCategoryState> {
     const result = (await AddSubCategorySchema()).safeParse(
         Object.fromEntries(formData)
     );
 
-    console.log(result);
-
-    const { categoryId, token } = arg;
-
-    if (result.success === false) {
+    if (!result.success) {
         return {
             error: result.error.formErrors.fieldErrors,
-            formData,
+            status: null,
         };
     }
 
-    console.log(result.data);
-    console.log(Number(categoryId));
+    const { token, categoryId } = arg;
 
     try {
         const res = await axios.post(
@@ -39,7 +35,7 @@ export async function addSubCategory(
             },
             {
                 headers: {
-                    Authorization: "Bearer " + token,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         );
@@ -47,41 +43,62 @@ export async function addSubCategory(
         if (res.status !== 201) {
             return {
                 message: "An unexpected error occurred",
-                status: 400
+                status: 400,
             };
         }
 
-        if (res.status === 201) {
-            revalidatePath(`/admin/categories/${categoryId}`);
-            return {
-                status: 201,
-                message: "Sub Category added successfully",
-            };
-        }
+        revalidatePath(`/admin/categories/${categoryId}`);
+
+        return {
+            status: 201,
+            message: "Sub Category added successfully",
+        };
     } catch (error: any) {
         return {
-            message: error.response.data.message,
-            status: 400
-        }
+            message: error.response?.data?.message || "Something went wrong",
+            status: 400,
+        };
     }
 }
-export async function SubCategoryUpdate(
-    arg: { token: string; Id: number },
-    prevState: unknown,
-    formData: FormData
-) {
+
+
+
+export async function SubCategoryUpdate(arg: {
+    token: string;
+    Id: number;
+}, prevState: {
+    error: {
+        updateSubCategory?: string[] | undefined;
+    };
+    formData: FormData | undefined;
+    message: string;
+    status: number | null;
+}, formData: FormData): Promise<{
+    error: {
+        updateSubCategory?: string[] | undefined;
+    };
+    formData: FormData | undefined;
+    message: string;
+    status: number | null;
+}> {
     const result = (await UpdateSubCategorySchema()).safeParse(
         Object.fromEntries(formData)
     );
 
+
     console.log(result);
+
 
     const { Id, token } = arg;
 
-    if (result.success === false) {
+    if (!result.success) {
         return {
-            error: result.error.formErrors.fieldErrors,
+            error: {
+                updateSubCategory: result.error.formErrors.fieldErrors.updateSubCategory ?? [],
+            },
             formData,
+            message: '',
+            status: null,
         };
     }
 
@@ -98,29 +115,40 @@ export async function SubCategoryUpdate(
             }
         );
 
-        console.log(res)
-
         if (res.status !== 200) {
             return {
                 message: "An unexpected error occurred",
-                status: 400
+                status: 400,
+                error: {},
+                formData: undefined,
             };
         }
 
         if (res.status === 200) {
             revalidatePath(`/admin/categories/${Id}`);
             return {
-                status: 200,
                 message: "Sub Category updated successfully",
+                status: 200,
+                error: {},
+                formData: undefined,
             };
         }
     } catch (error: any) {
-        console.log(error)
         return {
-            message: error.response.data.message,
-            status: 400
-        }
+            message: error.response?.data?.message ?? "Something went wrong",
+            status: 400,
+            error: {},
+            formData: undefined,
+        };
     }
+
+    // رجع قيمة افتراضية لتجنب مشاكل TypeScript
+    return {
+        message: "Unhandled error",
+        status: 500,
+        error: {},
+        formData: undefined,
+    };
 }
 
 

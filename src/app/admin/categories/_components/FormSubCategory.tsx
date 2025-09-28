@@ -17,7 +17,7 @@ interface Props {
     categories: Category[]
 }
 
-const initialState: {
+export const initialSubCategoryState: {
     message?: string,
     error?: validationError,
     status?: number | null,
@@ -32,7 +32,7 @@ const FormSubCategory = ({ token, categories }: Props) => {
 
     const [categoryId, setCategoryId] = useState(categories[0]?.id.toString())
 
-    const [state, action, pending] = useActionState(addSubCategory.bind(null, { token, categoryId }), initialState)
+    const [state, action, pending] = useActionState(addSubCategory.bind(null, { token, categoryId }), initialSubCategoryState)
 
     console.log(state)
 

@@ -26,7 +26,7 @@ const CategoryPage = async ({ params }: Props) => {
             </div>
             <div className='flex flex-col lg:flex-row items-center justify-between my-10 h-full gap-10'>
                 <Form token={token} category={category.date} />
-                <SubCategories token={token} subCategories={subCategories} />
+                <SubCategories token={token} subCategories={subCategories} categoryId={categoryId} />
             </div>
         </div>
     )

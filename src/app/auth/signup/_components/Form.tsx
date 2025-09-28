@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import Link from "@/components/link/Link";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -8,8 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import React, { useActionState, useEffect, useRef } from "react";
 import { toast } from "sonner";
-import signup from "../_action/signup";
-import { validationError } from "@/validation/auth";
+import signup, { FormState } from "../_action/signup";
 import LoadingComponent from "@/components/LoadingComponent";
 
 type FormInputs = {
@@ -21,18 +19,10 @@ type FormInputs = {
     address: string;
 };
 
-const initialState: {
-    message?: string,
-    error?: validationError,
-    status?: number | null,
-    formData?: FormData | null,
-
-} = {
-    message: '',
+export const initialState: FormState = {
     error: {},
-    status: null,
-    formData: null,
-}
+    formData: new FormData(),
+};
 
 const Form = () => {
     const router = useRouter()
@@ -46,34 +36,7 @@ const Form = () => {
         address: '',
     });
 
-    // const onSubmit = async (e: React.FormEvent) => {
-    //     e.preventDefault()
-    //     try {
-    //         const res = await axios.post(`${domain}/auth/sign-up`, {
-    //             name: data.current.name,
-    //             email: data.current.email,
-    //             password: data.current.password,
-    //             age: Number(data.current.age),
-    //             phone: data.current.phone,
-    //             address: data.current.address
-    //         })
-    //             ;
-    //         // console.log(res)
-    //         if (res.status !== 201) {
-    //             toast('llll', { className: '!text-destructive' })
-    //         }
-    //         // if (res.ok) {
-    //         //     toast(res.statusText, { className: '!text-green-400' })
-    //         //     router.replace(`/auth/signin`)
-    //         // }
-
-    //     } catch (error: any) {
-    //         console.log(error)
-    //         toast(error.response.data.message, { className: '!text-red-600 ', position: "top-center" })
-    //     }
-    // }
-
-    const [state, action, pending] = useActionState(signup, initialState)
+    const [state, action, pending] = useActionState<FormState, FormData>(signup, initialState)
 
 
     useEffect(() => {

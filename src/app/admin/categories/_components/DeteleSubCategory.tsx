@@ -11,9 +11,10 @@ import LoadingComponent from "@/components/LoadingComponent";
 interface Props {
     id: number;
     token: string;
+    categoryId: number
 }
 
-const DeteleSubCategory = ({ id, token }: Props) => {
+const DeteleSubCategory = ({ id, token, categoryId }: Props) => {
     const router = useRouter();
 
     const [state, setState] = useState({
@@ -26,7 +27,7 @@ const DeteleSubCategory = ({ id, token }: Props) => {
         setState((prev) => ({ ...prev, pending: true }));
 
         try {
-            await deleteSubCategory(id, token);
+            await deleteSubCategory(id, token, categoryId);
             setState((prev) => ({
                 ...prev,
                 message: "Brand deleted successfull",

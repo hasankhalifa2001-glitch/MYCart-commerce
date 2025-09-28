@@ -6,11 +6,8 @@ import StarRating from "./_components/StarRating";
 import { Separator } from "@/components/ui/separator";
 import WriteReview from "./_components/WriteReview";
 import { cookies } from "next/headers";
-import AddToCart from "@/components/products/AddToCart";
-import { getCart } from "../cart/_action/ActionCart";
 import TimeAgo from "./_components/TimeAgo";
 import jwt from "jsonwebtoken";
-import { Button } from "@/components/ui/button";
 import DeleteReview from "./_components/DeleteReview";
 
 export type token = {
@@ -102,18 +99,18 @@ const page = async () => {
         },
     ];
 
-    let myReview: Review[] = [];
-    let otherReview: Review[] = [];
+    // let myReview: Review[] = [];
+    // let otherReview: Review[] = [];
 
-    reviews.map((review) => {
-        if (review.user.id === decoded.id) {
-            myReview.push(review);
-        } else {
-            otherReview.push(review);
-        }
-    });
+    // reviews.map((review) => {
+    //     if (review.user.id === decoded.id) {
+    //         myReview.push(review);
+    //     } else {
+    //         otherReview.push(review);
+    //     }
+    // });
 
-    console.log(myReview);
+    // console.log(myReview);
 
     return (
         <div>
@@ -137,14 +134,14 @@ const page = async () => {
                             <div className="grid grid-cols-2 text-base w-3/10">
                                 <div className="">
                                     <div>Category: </div>
-                                    {product.subcategory ? <div>SubCategory: </div> : ''}
-                                    {product.brand ? <div>Brand: </div> : ''}
+                                    {/* {product.subcategory ? <div>SubCategory: </div> : ''}
+                                    {product.brand ? <div>Brand: </div> : ''} */}
 
                                 </div>
                                 <div className="text-slate-600">
                                     <div>{product.category}</div>
-                                    <div>{product.subcategory}</div>
-                                    <div>{product.brand}</div>
+                                    {/* <div>{product.subcategory}</div>
+                                    <div>{product.brand}</div> */}
                                 </div>
                             </div>
                         </div>
@@ -176,7 +173,7 @@ const page = async () => {
                     <div className="grid grid-cols-2 gap-5">
                         <div className="">
                             <div>My Review</div>
-                            {reviews.map((review: any, index: number) => {
+                            {reviews.map((review: Review, index: number) => {
                                 if (review.user.id === decoded.id) {
                                     return (
                                         <div
@@ -204,7 +201,7 @@ const page = async () => {
                         </div>
                         <div>
                             <div>Other Review</div>
-                            {reviews.map((review: any, index: number) => {
+                            {reviews.map((review: Review, index: number) => {
                                 if (review.user.id !== decoded.id) {
                                     return (
                                         <div

@@ -2,16 +2,15 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, ChevronUp } from "lucide-react";
-// import { CartItem, useCartStore } from "@/store/cart.store";
 import { fromatCurrency } from "@/lib/formatters";
 import { Button } from "@/components/ui/button";
 import { cartItem } from "@/components/products/Products";
 import { domain } from "@/constant/postman";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import LoadingComponent from "@/components/LoadingComponent";
 import { Fade } from "react-awesome-reveal";
 import CartItemBigScreen from "./CartItemBigScreen";
+import LoadingComponent from "@/components/LoadingComponent";
 
 interface Props {
     cartItems: cartItem[];
@@ -23,7 +22,6 @@ const CartTable = ({ cartItems, token }: Props) => {
 
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    // const [quantity, setQuantity] = useState<number>();
 
     async function handleAddItem(id: number) {
         if (!token) {
@@ -201,20 +199,18 @@ const CartTable = ({ cartItems, token }: Props) => {
                                             variant={"outline"}
                                             size={"icon"}
                                             className="size-6"
-                                            // onClick={() => handleMinus(item.product.id)}
                                             onClick={() => handleRemoveItem(item.product.id)}
                                         >
-                                            <ChevronDown className="p-[1px]" />
+                                            {loading ? <LoadingComponent /> : <ChevronDown className="p-[1px]" />}
                                         </Button>
                                         {item.quantity}
                                         <Button
                                             variant={"outline"}
                                             size={"icon"}
                                             className="size-6"
-                                            // onClick={() => handlePlus(item.product.id)}
                                             onClick={() => handleAddItem(item.product.id)}
                                         >
-                                            <ChevronUp className="p-[1px]" />
+                                            {loading ? <LoadingComponent /> : <ChevronUp className="p-[1px]" />}
                                         </Button>
                                     </div>
                                     <div className="font-bold">

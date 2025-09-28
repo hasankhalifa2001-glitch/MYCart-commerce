@@ -4,7 +4,11 @@
 import React, { useEffect, useState } from 'react'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 
-const TimeAgo = ({ timestamp }) => {
+interface Props {
+    timestamp: string
+}
+
+const TimeAgo = ({ timestamp }: Props) => {
     const [timeAgo, setTimeAgo] = useState('')
 
     useEffect(() => {

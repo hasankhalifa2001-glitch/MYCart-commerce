@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { validationError } from "@/validation/auth"
 import { Edit } from "lucide-react"
 import { useActionState, useEffect } from "react"
 import { SubCategoryUpdate } from "../_action/SubCategory"
@@ -26,16 +25,30 @@ interface Props {
     token: string
 }
 
-const initialState: {
-    message?: string,
-    error?: validationError,
-    status?: number | null,
+// const initialState: {
+//     message?: string,
+//     error?: validationError,
+//     status?: number | null,
 
+// } = {
+//     message: '',
+//     error: {},
+//     status: null,
+// }
+
+const initialState: {
+    error: {
+        updateSubCategory?: string[] | undefined;
+    };
+    formData: FormData | undefined;
+    message: string;
+    status: number | null;
 } = {
-    message: '',
     error: {},
+    formData: undefined,
+    message: '',
     status: null,
-}
+};
 
 const UpdateSubCategory = ({ sub, token }: Props) => {
 
